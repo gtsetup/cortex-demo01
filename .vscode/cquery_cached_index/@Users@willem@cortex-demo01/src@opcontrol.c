@@ -27,13 +27,25 @@
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
 void operatorControl() {
-	  int power;
-	  int turn;
-	  while (1) {
+	  bool tankControl = true;		// if true tankcontrol if false arcade control
+    if(tankControl) {
+			 int left, right;
+			 while(1){
+				 left = joystickGetAnalog(1, 2); // vertical axis on left joystick
+				 right  = joystickGetAnalog(1, 3); // vertical axis on right joystick
+				 motorSet(2, left); // set left wheels
+				 motorSet(3, -right); // set right wheels -- mirrored motor in chassis
+				 delay(20);
+			 }
+		} else {
+			int power;
+	  	int turn;
+	  	while (1) {
         power = joystickGetAnalog(1, 2); // vertical axis on left joystick
         turn  = joystickGetAnalog(1, 1); // horizontal axis on left joystick
         motorSet(2, power + turn); // set left wheels
         motorSet(3, power - turn); // set right wheels
         delay(20);
 	  }
+	}
 }
