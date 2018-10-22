@@ -5,3 +5,5 @@ This is a skeleton project intended for use in a class when teaching the basic f
 Created a branch to demonstrate branch and merge in gitHUB
 
 Added in the opcontrol.c function a sample of both arcade and tank control
+
+This is a FORKED copy of the original Repo
