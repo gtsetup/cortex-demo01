@@ -28,11 +28,17 @@
  */
 void operatorControl() {
 	  bool tankControl = true;		// if true tankcontrol if false arcade control
-    if(tankControl) {
+		int deadZone = 10;					// dealing with deadZone in joystickGetAnalog
+		bool useDeadZone = true;		// turn deadZone use on/off
+		if(tankControl) {
 			 int left, right;
 			 while(1){
 				 left = joystickGetAnalog(1, 2); // vertical axis on left joystick
 				 right  = joystickGetAnalog(1, 3); // vertical axis on right joystick
+				 if(useDeadZone) {
+            if(abs(left) <= deadZone) { left = 0; }
+						if(abs(right) <= deadZone) {right = 0;}
+				 }
 				 motorSet(2, left); // set left wheels
 				 motorSet(3, -right); // set right wheels -- mirrored motor in chassis
 				 delay(20);
@@ -43,6 +49,10 @@ void operatorControl() {
 	  	while (1) {
         power = joystickGetAnalog(1, 2); // vertical axis on left joystick
         turn  = joystickGetAnalog(1, 1); // horizontal axis on left joystick
+				if(useDeadZone) {
+					 if(abs(power) <= deadZone) { power = 0; }
+					 if(abs(turn) <= deadZone) {turn = 0;}
+				}
         motorSet(2, power + turn); // set left wheels
         motorSet(3, power - turn); // set right wheels
         delay(20);
